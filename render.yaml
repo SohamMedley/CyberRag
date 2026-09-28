@@ -9,7 +9,7 @@
 
 services:
   - type: web
-    name: cyber-rag
+    name: cyberrag-ai
     runtime: python
     plan: free                 # 'starter' (paid) allows a persistent disk, see below
     region: singapore          # pick the region closest to you / your users
