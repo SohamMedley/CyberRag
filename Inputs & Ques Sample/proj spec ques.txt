@@ -1,0 +1,3 @@
+Upload Proj Spec and Nlp
+1) "What is the hardware platform used in Project ShadowSense, and what vector dimensionality is used in all-MiniLM-L6-v2?"
+2) "What is the chemical composition of lithium-ion batteries and what causes thermal runaway?"

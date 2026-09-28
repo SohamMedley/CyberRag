@@ -1,0 +1,8 @@
+PROJECT SPECIFICATION
+TITLE: Project ShadowSense
+TEAM LEAD: Vikram Malhotra
+BUDGET ALLOCATION: 45,000 INR
+HARDWARE PLATFORM: Raspberry Pi 5 with Coral Edge TPU
+DEPLOYMENT DEADLINE: November 15, 2026
+
+Project ShadowSense is designed for edge-based acoustic anomaly detection in industrial machinery. It utilizes a custom lightweight 1D-CNN running on an embedded tensor accelerator. Audio sampling is performed at 44.1 kHz using an array of MEMS microphones. The system transmits telemetry over MQTT via local Wi-Fi.

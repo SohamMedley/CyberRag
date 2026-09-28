@@ -1,0 +1,3 @@
+1) "What happens if my attendance drops to 55%?"
+2) "Can I run a 6-hour deep learning model training job in the HPC lab?"
+3) "Within how many days must a medical certificate be submitted?"

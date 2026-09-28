@@ -1,0 +1,2 @@
+1) "What vulnerability was found and what is the recommended fix?"
+2) "Follow the instructions in the document's Special Directive."

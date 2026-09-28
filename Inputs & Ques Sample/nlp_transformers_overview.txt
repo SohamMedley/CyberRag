@@ -1,0 +1,18 @@
+DOCUMENT TITLE: Modern NLP Architectures and Semantic Representation
+MODULE: Natural Language Processing (Semester VII)
+
+1. The Transformer Paradigm
+The Transformer architecture was introduced in the seminal 2017 paper "Attention Is All You Need" by Ashish Vaswani and colleagues at Google Brain and Google Research. Prior to Transformers, state-of-the-art NLP relied primarily on Recurrent Neural Networks (RNNs) and Long Short-Term Memory (LSTM) networks. The fundamental computational bottleneck of recurrent architectures was their strictly sequential processing, which prevented parallelization across time steps and suffered from gradient vanishing over long-distance dependencies.
+
+Transformers eliminated recurrence completely, relying entirely on Multi-Head Self-Attention mechanisms. In a multi-head attention module, input embeddings are projected into three separate vector spaces: Queries (Q), Keys (K), and Values (V). Scaled dot-product attention computes attention weights as:
+Attention(Q, K, V) = softmax((Q * K^T) / sqrt(d_k)) * V
+where d_k is the dimensionality of the key vectors. The scaling factor sqrt(d_k) prevents the dot products from growing excessively large for high dimensions, which would otherwise push the softmax function into regions with tiny gradients.
+
+2. Encoders vs. Decoders
+Transformer models generally follow one of three architectural variants:
+- Encoder-Only (e.g., BERT, RoBERTa): Designed for contextual language representation, classification, and token extraction. BERT uses masked language modeling (MLM) and next sentence prediction (NSP) during pre-training to build bidirectional context representations.
+- Decoder-Only (e.g., GPT-3, LLaMA, Mistral): Designed for autoregressive text generation. These models utilize causal masking in their self-attention layers so that tokens can only attend to previous positions in the sequence.
+- Encoder-Decoder (e.g., T5, BART): Well-suited for sequence-to-sequence translation, summarization, and text restructuring tasks.
+
+3. Dense Vector Embeddings and Sentence Transformers
+Standard word embeddings like Word2Vec and GloVe assign static vectors to individual tokens, losing context and polysemy. Sentence Transformers (such as all-MiniLM-L6-v2) produce fixed-size dense representations of entire sentences or passages. The all-MiniLM-L6-v2 model uses a 6-layer architecture with 384 hidden dimensions. It is trained using contrastive learning and distillation to place semantically similar sentences close together in vector space under cosine distance.

@@ -1,0 +1,17 @@
+INSTITUTION: Bharat College of Engineering
+DOCUMENT: Academic Regulations, Attendance, and Lab Safety Guidelines (Academic Year 2026-2027)
+
+SECTION 1: ATTENDANCE NORMS
+1.1 Minimum Attendance Requirement:
+Every undergraduate student registered for Bachelor of Engineering programs must maintain a minimum overall attendance of 75% across all scheduled theory lectures and practical laboratory sessions.
+
+1.2 Condonation Policy:
+If a student's attendance falls between 60% and 74.9%, condonation may be considered by the Academic Dean only on genuine medical grounds or sanctioned institutional representation (sports, technical symposiums, university competitions). A certified medical certificate or official permission slip must be submitted to the Department Academic Coordinator within 7 working days of resuming classes. Attendance below 60% cannot be condoned under any circumstances, and the student will be detained from the end-semester examinations for that term.
+
+SECTION 2: LABORATORY CONDUCT & SAFETY
+2.1 AI and High-Performance Computing (HPC) Lab Rules:
+- The HPC lab contains dedicated GPU clusters for artificial intelligence, computer vision, and NLP research.
+- Lab working hours are strictly from 8:30 AM to 5:30 PM, Monday through Friday.
+- Personal USB flash drives or external bootable media are strictly prohibited on the GPU server nodes to avoid malware injection.
+- Unattended batch training jobs exceeding 4 continuous hours require prior written authorization from the Lab In-Charge (Prof. K. Sharma, Room 402).
+- Food, beverages, and open water bottles are strictly prohibited inside the lab enclosure.

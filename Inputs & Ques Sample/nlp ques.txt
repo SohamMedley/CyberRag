@@ -1,0 +1,3 @@
+1) "What is the structural difference between BERT and GPT according to the notes?"
+2) "Why is the scaling factor sqrt(d_k) used in scaled dot-product attention?"
+3) "Who introduced the Transformer architecture and in what year?"
