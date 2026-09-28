@@ -3,7 +3,7 @@
 <head>
  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
  <meta name="theme-color" content="#f4f7fa"><title>Library · CYBER-RAG</title>
- <link rel="stylesheet" href="/static/style.css"><script src="/static/script.js" defer></script>
+ <link rel="stylesheet" href="/static/style.css?v={{ version }}"><script src="/static/script.js?v={{ version }}" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to workspace</a>
@@ -11,40 +11,70 @@
  <symbol id="spark" viewBox="0 0 24 24"><path d="m12 3 2.4 6.6L21 12l-6.6 2.4L12 21l-2.4-6.6L3 12l6.6-2.4Z"/></symbol>
  <symbol id="doc" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></symbol>
  <symbol id="arrow" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></symbol>
- <symbol id="activity-icon" viewBox="0 0 24 24"><path d="M3 12h4l3-7 4 14 3-7h4"/></symbol>
  <symbol id="search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol>
- <symbol id="moon" viewBox="0 0 24 24"><path d="M20 14a8 8 0 0 1-10-10 8.5 8.5 0 1 0 10 10Z"/></symbol>
  <symbol id="check" viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></symbol>
+ <symbol id="trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6m4-6v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
 </svg>
 <div class="app-shell">
- <header class="topbar"><a class="brand" href="/" aria-label="CYBER-RAG home"><span class="brand-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M11 6H7a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h4M21 6h4a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3h-4"/><path d="m11 11 5 5-5 5m5-5h6"/><circle cx="22" cy="16" r="1.5" fill="currentColor" stroke="none"/></svg></span><span class="brand-wordmark">CYBER<span>RAG</span><small>DOCUMENT INTELLIGENCE</small></span></a><div class="top-actions"><span class="connection" id="connection" role="status"><i></i><span id="statusText">Connecting…</span></span></div></header>
+ <header class="topbar">
+  <a class="brand" href="/" aria-label="CYBER-RAG home"><span class="brand-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M11 6H7a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h4M21 6h4a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3h-4"/><path d="m11 11 5 5-5 5m5-5h6"/><circle cx="22" cy="16" r="1.5" fill="currentColor" stroke="none"/></svg></span><span class="brand-wordmark">CYBER<span>RAG</span><small>DOCUMENT INTELLIGENCE</small></span></a>
+  <div class="top-actions"><span class="connection" id="connection" role="status"><i></i><span id="statusText">Connecting…</span></span></div>
+ </header>
  <main id="main" tabindex="-1">
  <section class="page-heading"><div><span class="eyebrow" id="previewLabel">DOCUMENT INTELLIGENCE</span><h1 id="viewTitle">Library</h1><p id="viewSubtitle">Everything you know. Ready to explore.</p></div></section>
  <div id="notice" class="notice" role="alert" hidden><div><strong id="noticeTitle"></strong><p id="noticeText"></p></div><button id="dismissNotice" class="icon-button" aria-label="Dismiss message">×</button></div>
+
  <section id="libraryView" aria-label="Document library">
   <div class="editorial-card"><div class="editorial-copy"><span class="eyebrow">A SPACE FOR WHAT YOU KNOW</span><h2>A good question.<br>A new discovery.</h2><p>Bring your documents. Find the connections.</p><button id="heroUpload">Add documents <span aria-hidden="true">＋</span></button></div><div class="editorial-art" aria-hidden="true"><div class="art-orbit"></div><div class="art-document"><svg><use href="#doc"/></svg></div><div class="art-spark"><svg><use href="#spark"/></svg></div><span class="art-caption">KNOWLEDGE, CONNECTED.</span></div></div>
   <div class="library-toolbar"><h2>Your collection</h2><div class="metrics" aria-live="polite"><span><strong id="docsCount">0</strong> documents</span><span><strong id="chunksCount">0</strong> chunks</span></div></div>
   <div class="library-grid">
-   <section class="upload-panel" aria-labelledby="uploadTitle"><div class="section-heading"><h3 id="uploadTitle">Add to your library</h3><span class="step-label">PDF / TXT</span></div>
-    <button class="dropzone" id="dropZone" type="button"><span class="upload-icon"><svg><use href="#arrow"/></svg></span><strong>Drop your documents here</strong><span>or <em>browse files</em></span><small>PDF & TXT · 16 MB total per batch</small></button><input type="file" id="fileInput" accept=".pdf,.txt" multiple hidden>
-    <div class="queue-heading" id="queueHeading" hidden><h4>Ready to upload</h4><span id="queueSize"></span></div><ul id="queue" class="queue" aria-label="Files selected for upload"></ul>
+   <section class="upload-panel" aria-labelledby="uploadTitle">
+    <div class="section-heading"><h3 id="uploadTitle">Add to your library</h3><span class="step-label">PDF / TXT</span></div>
+    <button class="dropzone" id="dropZone" type="button"><span class="upload-icon"><svg><use href="#arrow"/></svg></span><strong>Drop your documents here</strong><span>or <em>browse files</em></span><small>PDF &amp; TXT · 16 MB total per batch</small></button><input type="file" id="fileInput" accept=".pdf,.txt" multiple hidden>
+    <div class="queue-heading" id="queueHeading" hidden><h4>Ready to upload</h4><span id="queueSize"></span></div>
+    <ul id="queue" class="queue" aria-label="Files selected for upload"></ul>
     <button class="primary index-button" id="indexButton" disabled><span>Index documents</span><span aria-hidden="true">＋</span></button>
     <div id="indexProgress" class="index-progress" role="status"><span class="spinner"></span><span id="indexProgressText">Choose files to add to your library.</span></div>
     <p class="upload-note">Text-based PDFs work best. Scanned PDFs need OCR before uploading.</p>
    </section>
-   <section class="collection-panel" aria-labelledby="collectionTitle"><div class="section-heading"><h3 id="collectionTitle">Indexed documents</h3><button class="text-button" id="refreshButton">Refresh <span aria-hidden="true">↻</span></button></div><div id="documentList" class="document-list" aria-live="polite"><div class="library-empty">Connecting to your document library…</div></div><p class="library-note">Your files are searched together when you ask a question.</p></section>
+   <section class="collection-panel" aria-labelledby="collectionTitle">
+    <div class="section-heading"><h3 id="collectionTitle">Indexed documents</h3><button class="text-button" id="refreshButton">Refresh <span aria-hidden="true">↻</span></button></div>
+    <div id="documentList" class="document-list" aria-live="polite"><div class="library-empty">Connecting to your document library…</div></div>
+    <p class="library-note">Your files are searched together when you ask a question. Delete any file to remove its chunks from the index.</p>
+   </section>
   </div>
  </section>
+
  <section id="askView" aria-label="Ask your documents" hidden>
   <div class="ask-context"><span><i></i> <span id="askContextText">No documents indexed</span></span><button id="manageLibrary" class="text-button">Manage library ↗</button></div>
   <div id="welcome" class="welcome"><div class="welcome-symbol"><svg><use href="#spark"/></svg></div><span class="eyebrow">MAKE ROOM FOR CURIOSITY</span><h2>What’s on your mind?</h2><p>Go beyond finding a passage.<br>Find an answer, with context you can check.</p><div class="suggestions"><button data-question="Summarize the key ideas in these documents."><span aria-hidden="true">✧</span><span>Summarize key ideas</span><span aria-hidden="true">↗</span></button><button data-question="What are the main findings in these documents?"><svg><use href="#search"/></svg><span>Explore the main findings</span><span aria-hidden="true">↗</span></button><button data-question="Explain the most important concepts in these documents."><svg><use href="#doc"/></svg><span>Explain an important concept</span><span aria-hidden="true">↗</span></button></div></div>
   <div id="loading" class="loading" role="status" hidden><span class="spinner"></span><div><strong>Looking through your documents</strong><p>Retrieving passages and generating an answer…</p></div></div>
   <article id="answer" hidden><div class="question-label">YOUR QUESTION</div><h2 id="askedQuestion"></h2><div class="answer-heading"><span><svg><use href="#spark"/></svg> Document answer</span><button class="text-button" id="copyButton">Copy answer</button></div><div id="answerText"></div><h3 class="source-heading">RETRIEVED SOURCES</h3><div id="sources" class="sources"></div><details class="context"><summary id="contextSummary">Retrieved passages</summary><div id="passages"></div></details><p class="answer-note">Generated from retrieved context, not independently verified. Check the passages for accuracy.</p></article>
  </section>
- <section id="activityView" aria-label="System activity" hidden><div class="activity-card"><h3>Processing log</h3><pre id="activity" role="log" aria-live="polite">Waiting for workspace status…</pre></div><div class="privacy-card"><h3>Your data, explained</h3><p>Embeddings and search run on your backend. Your question and retrieved passages are sent to Groq to generate an answer.</p></div><div class="reset-card"><div><h3>Reset your workspace</h3><p>Clear the vector index and delete files in upload staging.</p></div><button class="danger-button" id="resetButton">Clear index</button></div></section>
  </main>
  <footer><span><svg><use href="#spark"/></svg> Built for curious minds.</span><span>Local retrieval <b>·</b> Groq answers</span></footer>
 </div>
-<div class="bottom-dock" id="bottomDock"><form id="questionForm" class="composer"><div class="composer-main"><span class="mini-art" aria-hidden="true"><svg><use href="#spark"/></svg></span><label class="sr-only" for="questionInput">Ask a question about your indexed documents</label><textarea id="questionInput" placeholder="Ask your library…" rows="1" maxlength="6000" aria-describedby="composerHint"></textarea><button class="send-button" id="askButton" type="submit" disabled aria-label="Ask documents"><svg><use href="#arrow"/></svg></button></div><div class="composer-meta"><span id="composerHint" role="status">Connecting to Flask…</span><span class="shortcut">Ctrl / ⌘ + Enter</span></div></form><nav class="floating-tabs" aria-label="Main navigation"><button data-view="library" class="selected" aria-current="page"><svg><use href="#doc"/></svg><span>Library</span></button><button data-view="ask"><svg><use href="#spark"/></svg><span>Ask</span></button><button data-view="activity"><svg><use href="#activity-icon"/></svg><span>Activity</span></button></nav></div>
-<dialog id="resetDialog" aria-labelledby="resetTitle" aria-describedby="resetDescription"><div class="dialog-symbol" aria-hidden="true">↺</div><h2 id="resetTitle">A fresh start?</h2><p id="resetDescription">This permanently clears the vector index and deletes upload staging files. It does not delete data/documents. Your last answer will also be cleared.</p><p id="resetWarning" class="reset-warning" hidden>An indexing request had an unknown outcome. Make sure the server has finished processing—or restart Flask—before resetting. Resetting while indexing is still running can corrupt state.</p><label id="resetCheckLabel" class="reset-check" hidden><input type="checkbox" id="resetCheck"> I have checked that the server is no longer processing.</label><div class="dialog-actions"><button id="cancelReset" class="secondary" autofocus>Keep my documents</button><button id="confirmReset" class="danger-button">Clear index</button></div></dialog>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a423f00d1cb9471f',t:'MTc5MDYxMDk4MQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body></html>
+
+<div class="bottom-dock" id="bottomDock">
+ <form id="questionForm" class="composer">
+  <div class="composer-main"><span class="mini-art" aria-hidden="true"><svg><use href="#spark"/></svg></span><label class="sr-only" for="questionInput">Ask a question about your indexed documents</label><textarea id="questionInput" placeholder="Ask your library…" rows="1" maxlength="6000" aria-describedby="composerHint"></textarea><button class="send-button" id="askButton" type="submit" disabled aria-label="Ask documents"><svg><use href="#arrow"/></svg></button></div>
+  <div class="composer-meta"><span id="composerHint" role="status">Connecting to Flask…</span><span class="shortcut">Ctrl / ⌘ + Enter</span></div>
+ </form>
+ <nav class="floating-tabs two-tabs" aria-label="Main navigation">
+  <button data-view="library" class="selected" aria-current="page"><svg><use href="#doc"/></svg><span>Library</span></button>
+  <button data-view="ask"><svg><use href="#spark"/></svg><span>Ask</span></button>
+ </nav>
+</div>
+
+<dialog id="deleteDialog" aria-labelledby="deleteTitle" aria-describedby="deleteDescription">
+ <div class="dialog-symbol" aria-hidden="true">⌫</div>
+ <h2 id="deleteTitle">Delete this document?</h2>
+ <p id="deleteDescription">Its chunks and vectors are removed from the index and the stored file is deleted. This cannot be undone.</p>
+ <p id="deleteTarget" class="delete-target"></p>
+ <div class="dialog-actions">
+  <button id="cancelDelete" class="secondary" autofocus>Keep it</button>
+  <button id="confirmDelete" class="danger-button">Delete document</button>
+ </div>
+</dialog>
+</body>
+</html>

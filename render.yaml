@@ -1,0 +1,61 @@
+# Render Blueprint for CYBER-RAG.
+#
+# 1. Push this branch to GitHub.
+# 2. Render dashboard -> New -> Blueprint -> pick this repository.
+# 3. When asked, paste the value of GROQ_API_KEY (it is marked `sync: false`
+#    so it is never stored in git).
+#
+# Full walkthrough: DEPLOY_RENDER.md
+
+services:
+  - type: web
+    name: cyber-rag
+    runtime: python
+    plan: free                 # 'starter' (paid) allows a persistent disk, see below
+    region: singapore          # pick the region closest to you / your users
+    branch: main
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    startCommand: gunicorn -c gunicorn.conf.py app:app
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+      - key: GROQ_API_KEY
+        sync: false            # set in the dashboard - keep secrets out of git
+      - key: GROQ_MODEL
+        value: openai/gpt-oss-20b
+      - key: GROQ_REASONING_EFFORT
+        value: low
+      - key: GROQ_FALLBACK_MODELS
+        value: openai/gpt-oss-120b,llama-3.1-8b-instant
+      - key: TOP_K_RETRIEVAL
+        value: "4"
+      - key: MIN_SIMILARITY_SCORE
+        value: "0.15"
+      - key: MAX_CONTEXT_TOKENS
+        value: "3000"
+      - key: MAX_ANSWER_TOKENS
+        value: "600"
+      - key: MAX_CONTENT_LENGTH_MB
+        value: "16"
+      - key: EMBEDDING_THREADS
+        value: "1"
+      - key: WARMUP_EMBEDDINGS
+        value: "true"
+      - key: LOG_LEVEL
+        value: INFO
+      # Files inside the repository are wiped on every deploy. On a paid plan,
+      # attach the disk below and uncomment these three variables so the index
+      # and the model cache survive restarts:
+      # - key: DATA_DIR
+      #   value: /var/data
+      # - key: UPLOAD_DIR
+      #   value: /var/data/uploads
+      # - key: HF_HOME
+      #   value: /var/data/hf-cache
+    # Disks are not available on the free plan. Uncomment with plan: starter.
+    # disk:
+    #   name: cyberrag-data
+    #   mountPath: /var/data
+    #   sizeGB: 1

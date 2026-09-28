@@ -1,8 +1,30 @@
-﻿Flask==3.0.3
+# CYBER-RAG runtime dependencies (pinned for reproducible deploys).
+#
+# The extra index serves CPU-only PyTorch wheels. On Linux (Render, Fly, Docker)
+# that is the difference between a ~200 MB download and a ~2.5 GB CUDA install,
+# which matters for build time and the 512 MB instance limit of free plans.
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+# --- web layer -------------------------------------------------------------
+Flask==3.0.3
+Werkzeug==3.0.4
 python-dotenv==1.0.1
-groq==0.11.0
-sentence-transformers==3.1.1
-faiss-cpu==1.9.0
+gunicorn==23.0.0
+
+# --- document handling -----------------------------------------------------
 pypdf==4.3.1
 numpy==1.26.4
-werkzeug==3.0.4
+faiss-cpu==1.9.0
+
+# --- LLM provider ----------------------------------------------------------
+# groq>=1.0 is required: groq 0.11 passes a "proxies" argument to httpx that
+# httpx 0.28 removed, so older versions crash while building the client.
+groq==1.7.0
+
+# --- embeddings (CPU only) -------------------------------------------------
+torch==2.4.0+cpu ; sys_platform == "linux"
+torch==2.4.0 ; sys_platform != "linux"
+transformers==4.44.2
+sentence-transformers==3.1.1
+huggingface-hub==0.24.6
+tokenizers==0.19.1
