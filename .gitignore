@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Tooling
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Secrets and local overrides (never commit a real API key)
+.env
+.env.local
+!.env.example
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+
+# Local model cache if HF_HOME is pointed inside the project
+.cache/
+hf-cache/
+
+# NOTE: uploads/ and data/index/ are intentionally tracked in this repository
+# because the sample library that ships with the project is built from them.
+# If you would rather keep user documents out of git, add:
+#   uploads/*
+#   data/index/*
+#   !uploads/.gitkeep
+#   !data/index/.gitkeep
