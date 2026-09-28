@@ -178,7 +178,7 @@ def test_index_rejects_documents_without_text(client):
     upload(client, "empty.txt", "    ")
     response = index_files(client, ["empty.txt"])
     assert response.status_code == 400
-    assert "empty or image-only" in response.get_json()["report"][0]["reason"]
+    assert "No extractable text" in response.get_json()["report"][0]["reason"]
 
 
 def test_index_handles_pdf_documents(client, pdf_bytes):

@@ -29,10 +29,7 @@ Thumbs.db
 .cache/
 hf-cache/
 
-# NOTE: uploads/ and data/index/ are intentionally tracked in this repository
-# because the sample library that ships with the project is built from them.
-# If you would rather keep user documents out of git, add:
-#   uploads/*
-#   data/index/*
-#   !uploads/.gitkeep
-#   !data/index/.gitkeep
+# Runtime data: user uploads and the vector index are rebuilt at runtime and
+# must never be committed (Render wipes these directories on every deploy).
+uploads/
+data/*

@@ -22,10 +22,12 @@ def test_extract_txt(tmp_path):
     assert pages == [{"page_number": None, "text": "Hello\n\nWorld"}]
 
 
-def test_extract_empty_txt_returns_nothing(tmp_path):
+def test_extract_empty_txt_raises_ocr_error(tmp_path):
     path = tmp_path / "empty.txt"
     path.write_text("   \n\n  ", encoding="utf-8")
-    assert extract_text_from_file(path, "empty.txt") == []
+    # Empty files are rejected with the same error as scanned/image-only PDFs.
+    with pytest.raises(ValueError, match="No extractable text"):
+        extract_text_from_file(path, "empty.txt")
 
 
 def test_extract_pdf_pages(tmp_path, pdf_bytes):

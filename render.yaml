@@ -13,8 +13,8 @@ services:
     runtime: python
     plan: free                 # 'starter' (paid) allows a persistent disk, see below
     region: singapore          # pick the region closest to you / your users
-    branch: main
-    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    branch: arena/01a0e972-cyberrag
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt && python scripts/prefetch_model.py
     startCommand: gunicorn -c gunicorn.conf.py app:app
     healthCheckPath: /healthz
     autoDeploy: true
@@ -43,11 +43,16 @@ services:
         value: "1"
       - key: WARMUP_EMBEDDINGS
         value: "true"
+      # Build-time model prefetch (scripts/prefetch_model.py) downloads into
+      # this directory and the runtime reads the same path, so the first
+      # request never waits on a ~90 MB download. Git-ignored (.cache/).
+      - key: HF_HOME
+        value: /opt/render/project/src/.cache/hf
       - key: LOG_LEVEL
         value: INFO
       # Files inside the repository are wiped on every deploy. On a paid plan,
-      # attach the disk below and uncomment these three variables so the index
-      # and the model cache survive restarts:
+      # attach the disk below and uncomment these variables so the index
+      # survives restarts, and repoint HF_HOME at the disk too:
       # - key: DATA_DIR
       #   value: /var/data
       # - key: UPLOAD_DIR

@@ -14,6 +14,15 @@ from .config import slugify_doc_id
 # because they are almost always page footers / stray numbers.
 MIN_TAIL_WORDS = 30
 
+# Raised when a document yields no extractable text: either the file is empty
+# or the PDF is a scan (image-only) and would need OCR, which this deployment
+# does not include.
+NO_TEXT_ERROR = (
+    "No extractable text found - the file is empty, or it is a "
+    "scanned/image-only PDF that needs OCR (OCR is not enabled in this "
+    "deployment). Please upload a text-based PDF or a text file."
+)
+
 
 def clean_text(text: str) -> str:
     if not text:
@@ -50,6 +59,8 @@ def extract_text_from_file(file_path: str | Path, filename: Optional[str] = None
             raise
         except Exception as exc:
             raise ValueError(f"Corrupt or unreadable PDF: {exc}") from exc
+        if not pages_data:
+            raise ValueError(NO_TEXT_ERROR)
         return pages_data
 
     if ext == "txt":
@@ -58,7 +69,9 @@ def extract_text_from_file(file_path: str | Path, filename: Optional[str] = None
         except Exception as exc:
             raise ValueError(f"Unable to read TXT file: {exc}") from exc
         cleaned = clean_text(content)
-        return [{"page_number": None, "text": cleaned}] if cleaned else []
+        if not cleaned:
+            raise ValueError(NO_TEXT_ERROR)
+        return [{"page_number": None, "text": cleaned}]
 
     raise ValueError(f"Unsupported file format: .{ext}")
 
